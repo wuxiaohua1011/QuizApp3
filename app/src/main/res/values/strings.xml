@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">QuizApp2</string>
+    <string name="activity_main_answer_questions_button">Answer Questions</string>
+    <string name="activity_main_make_questions_button">Make Questions</string>
+    <string name="activity_answer_questions_back_button">Back</string>
+    <string name="activity_answer_questions_previous_button">Previous</string>
+    <string name="activity_answer_questions_next_button">Next</string>
+    <string name="activity_answer_questions_question_textview">Question</string>
+    <string name="activity_answer_questions_true_button">True</string>
+    <string name="activity_answer_questions_false_button">False</string>
+    <string name="activity_make_question_back_button">Back</string>
+    <string name="activity_make_question_false_true_switch">False/True</string>
+    <string name="activity_make_question_done_button">Done</string>
+
+</resources>
