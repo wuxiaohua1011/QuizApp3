@@ -11,5 +11,6 @@
     <string name="activity_make_question_back_button">Back</string>
     <string name="activity_make_question_false_true_switch">False/True</string>
     <string name="activity_make_question_done_button">Done</string>
+    <string name="activity_make_question_more_button">More</string>
 
 </resources>

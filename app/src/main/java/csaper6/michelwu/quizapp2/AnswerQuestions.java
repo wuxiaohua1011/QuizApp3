@@ -1,6 +1,7 @@
 package csaper6.michelwu.quizapp2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +11,31 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class AnswerQuestions extends AppCompatActivity implements View.OnClickListener{
 private Button previous,next, buttonTrue,buttonFalse,back;
     private TextView question;
+    private ArrayList<Question> questionBank = new ArrayList<Question>();
+    private int questionBankSize;
+    private int currentQuestionIndex = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_questions);
         wireWidget();
         addListener();
+        putStringBackToQuestionAndToquestionBank();
+        questionBankSize = questionBank.size();
+    }
+
+    private void putStringBackToQuestionAndToquestionBank() {
+        SharedPreferences sharedPreferences = getSharedPreferences(MakeQuestions.EXTRA_MESSAGE,MODE_PRIVATE);
+        int tempSize = Integer.parseInt(sharedPreferences.getString("size",""+0));
+        for (int i = 1;i<=tempSize;i++){
+            Question tempQuestion = new Question(sharedPreferences.getString("key"+1,"Question Not Found"));
+            questionBank.add(tempQuestion);
+        }
     }
 
     private void wireWidget() {
@@ -38,6 +55,19 @@ private Button previous,next, buttonTrue,buttonFalse,back;
         buttonTrue.setOnClickListener(this);
     }
 
+    private Question getCurrentQuestion(int index){
+        if(index >= questionBankSize){
+            currentQuestionIndex=0;index=0;
+            return questionBank.get(index);
+        }
+        else if(index<0){
+            currentQuestionIndex=questionBankSize-1;index=questionBankSize-1;return questionBank.get(index);
+        }
+        else {
+            return questionBank.get(index);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId())
@@ -45,15 +75,38 @@ private Button previous,next, buttonTrue,buttonFalse,back;
             case R.id.activity_answer_questions_back_button:
                 startActivity(new Intent(this, MainActivity.class));break;
             case  R.id.activity_answer_questions_false_button:
-                Toast.makeText(AnswerQuestions.this, "You are ", Toast.LENGTH_SHORT).show();
+                if(false == getCurrentQuestion(currentQuestionIndex).getAnswer()){
+                    Toast.makeText(AnswerQuestions.this, "Congratulation", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AnswerQuestions.this, "Too bad", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.activity_answer_questions_true_button:
-                Toast.makeText(AnswerQuestions.this, "You are", Toast.LENGTH_SHORT).show();break;
+                if(true == getCurrentQuestion(currentQuestionIndex).getAnswer()){
+                    Toast.makeText(AnswerQuestions.this, "Congratulation", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(AnswerQuestions.this, "Too bad", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+
+
             case R.id.activity_answer_questions_next_button:
-                Toast.makeText(AnswerQuestions.this, "Next", Toast.LENGTH_SHORT).show();break;
+                currentQuestionIndex++;
+                question.setText(getCurrentQuestion(currentQuestionIndex).getQuestion());
+                Toast.makeText(AnswerQuestions.this, "Next" + questionBankSize, Toast.LENGTH_SHORT).show();
+                break;
+
+
             case R.id.activity_answer_questions_previous_button:
+                currentQuestionIndex--;
+                question.setText(getCurrentQuestion(currentQuestionIndex).getQuestion());
                 Toast.makeText(AnswerQuestions.this, "Previous", Toast.LENGTH_SHORT).show();
                 break;
+
+
             default:
                 Toast.makeText(AnswerQuestions.this, "ERROR", Toast.LENGTH_SHORT).show();break;
         }

@@ -1,5 +1,6 @@
 package csaper6.michelwu.quizapp2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -30,7 +31,7 @@ private TextView temp;
     }
 
     public void Toast_clicked(View view) {
-        SharedPreferences sharedPreferences = this.getPreferences(MakeQuestions.MODE_PRIVATE);
-        Toast.makeText(MainActivity.this, sharedPreferences.getString(MakeQuestions.EXTRA_MESSAGE,"can't find any value"), Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = getSharedPreferences(MakeQuestions.EXTRA_MESSAGE,MODE_PRIVATE);
+        Toast.makeText(MainActivity.this, sharedPreferences.getString("size","can't find any value"), Toast.LENGTH_SHORT).show();
     }
 }

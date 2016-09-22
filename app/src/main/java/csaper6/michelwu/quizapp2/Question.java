@@ -11,6 +11,16 @@ public class Question {
         this.question=question;
         this.answer=answer;
     }
+
+    public Question(String compiledInput){
+        if(Integer.parseInt(compiledInput.substring(compiledInput.length()-1)) == 1){
+            answer = true;
+        }
+        else{
+            answer = false;
+        }
+        question = compiledInput.substring(0,compiledInput.length()-1);
+    }
     public String getQuestion(){
         return question;
     }
