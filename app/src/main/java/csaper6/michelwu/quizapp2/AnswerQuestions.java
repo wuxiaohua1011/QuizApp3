@@ -18,7 +18,7 @@ private Button previous,next, buttonTrue,buttonFalse,back;
     private TextView question;
     private ArrayList<Question> questionBank = new ArrayList<Question>();
     private int questionBankSize;
-    private int currentQuestionIndex = 1;
+    private int currentQuestionIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ private Button previous,next, buttonTrue,buttonFalse,back;
         SharedPreferences sharedPreferences = getSharedPreferences(MakeQuestions.EXTRA_MESSAGE,MODE_PRIVATE);
         int tempSize = Integer.parseInt(sharedPreferences.getString("size",""+0));
         for (int i = 1;i<=tempSize;i++){
-            Question tempQuestion = new Question(sharedPreferences.getString("key"+1,"Question Not Found"));
+            Question tempQuestion = new Question(sharedPreferences.getString("key"+i,"Question Not Found"));
             questionBank.add(tempQuestion);
         }
     }
@@ -55,17 +55,23 @@ private Button previous,next, buttonTrue,buttonFalse,back;
         buttonTrue.setOnClickListener(this);
     }
 
-    private Question getCurrentQuestion(int index){
-        if(index >= questionBankSize){
-            currentQuestionIndex=0;index=0;
-            return questionBank.get(index);
+    private Question getCurrentQuestion(){
+
+        if(currentQuestionIndex<0){
+            currentQuestionIndex=questionBank.size()-1;
+            return questionBank.get(questionBank.size()-1);
         }
-        else if(index<0){
-            currentQuestionIndex=questionBankSize-1;index=questionBankSize-1;return questionBank.get(index);
+        else if(currentQuestionIndex>=questionBank.size()){
+            currentQuestionIndex=0;
+            return questionBank.get(0);
         }
-        else {
-            return questionBank.get(index);
+        else if(currentQuestionIndex == 0){
+            return questionBank.get(currentQuestionIndex);
         }
+        else{
+            return questionBank.get(currentQuestionIndex);
+        }
+
     }
 
     @Override
@@ -75,7 +81,7 @@ private Button previous,next, buttonTrue,buttonFalse,back;
             case R.id.activity_answer_questions_back_button:
                 startActivity(new Intent(this, MainActivity.class));break;
             case  R.id.activity_answer_questions_false_button:
-                if(false == getCurrentQuestion(currentQuestionIndex).getAnswer()){
+                if(false == getCurrentQuestion().getAnswer()){
                     Toast.makeText(AnswerQuestions.this, "Congratulation", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -83,7 +89,7 @@ private Button previous,next, buttonTrue,buttonFalse,back;
                 }
                 break;
             case R.id.activity_answer_questions_true_button:
-                if(true == getCurrentQuestion(currentQuestionIndex).getAnswer()){
+                if(true == getCurrentQuestion().getAnswer()){
                     Toast.makeText(AnswerQuestions.this, "Congratulation", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -94,16 +100,22 @@ private Button previous,next, buttonTrue,buttonFalse,back;
 
 
             case R.id.activity_answer_questions_next_button:
-                currentQuestionIndex++;
-                question.setText(getCurrentQuestion(currentQuestionIndex).getQuestion());
-                Toast.makeText(AnswerQuestions.this, "Next" + questionBankSize, Toast.LENGTH_SHORT).show();
+               if (currentQuestionIndex>=questionBank.size()){
+                   currentQuestionIndex=0;
+               }
+                question.setText(questionBank.get(currentQuestionIndex).getQuestion());
+                Toast.makeText(AnswerQuestions.this, "Next", Toast.LENGTH_SHORT).show();
+                currentQuestionIndex=currentQuestionIndex+1;
                 break;
 
 
             case R.id.activity_answer_questions_previous_button:
-                currentQuestionIndex--;
-                question.setText(getCurrentQuestion(currentQuestionIndex).getQuestion());
+                if(currentQuestionIndex<0){
+                    currentQuestionIndex = questionBank.size()-1;
+                }
+                question.setText(getCurrentQuestion().getQuestion());
                 Toast.makeText(AnswerQuestions.this, "Previous", Toast.LENGTH_SHORT).show();
+                currentQuestionIndex = currentQuestionIndex-1;
                 break;
 
 

@@ -30,8 +30,8 @@ private TextView temp;
         startActivity(new Intent(this, AnswerQuestions.class));
     }
 
-    public void Toast_clicked(View view) {
-        SharedPreferences sharedPreferences = getSharedPreferences(MakeQuestions.EXTRA_MESSAGE,MODE_PRIVATE);
-        Toast.makeText(MainActivity.this, sharedPreferences.getString("size","can't find any value"), Toast.LENGTH_SHORT).show();
-    }
+//    public void Toast_clicked(View view) {
+//        SharedPreferences sharedPreferences = getSharedPreferences(MakeQuestions.EXTRA_MESSAGE,MODE_PRIVATE);
+//        Toast.makeText(MainActivity.this, sharedPreferences.getString("key3","can't find any value"), Toast.LENGTH_SHORT).show();
+//    }
 }

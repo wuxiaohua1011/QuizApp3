@@ -41,7 +41,7 @@
             android:id="@+id/activity_main_make_questions_button"
             android:layout_gravity="center_horizontal"
             android:onClick="activity_main_make_questions_button_clicked"/>
-
+        <!-- Testing button
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,6 +49,7 @@
             android:id="@+id/button"
             android:onClick="Toast_clicked"
             android:layout_gravity="center_horizontal" />
+            -->
 
     </LinearLayout>
 </RelativeLayout>

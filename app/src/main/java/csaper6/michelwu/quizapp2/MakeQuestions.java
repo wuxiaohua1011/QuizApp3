@@ -54,7 +54,7 @@ public class MakeQuestions extends AppCompatActivity {
         }
         editor.putString("size","" + numberOfEntry);
         editor.commit();
-        Toast.makeText(MakeQuestions.this, ""+numberOfEntry, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(MakeQuestions.this, ""+numberOfEntry, Toast.LENGTH_SHORT).show(); //for testing purposes
     }
 
     private void loadQuestions() {
@@ -76,7 +76,6 @@ public class MakeQuestions extends AppCompatActivity {
         numberOfEntry++;
         LinearLayout horizontal = new LinearLayout(this);
         horizontal.setOrientation(LinearLayout.HORIZONTAL);
-        horizontal.setMinimumHeight(16);
         horizontal.setId(numberOfEntry);
         verticalLayout.addView(horizontal);
         addQuestionAndAnswer(horizontal);
@@ -85,7 +84,6 @@ public class MakeQuestions extends AppCompatActivity {
         EditText editText = new EditText(this);
         editText.setId(editTextId+numberOfEntry);
         editText.setMinimumWidth(128);
-        editText.setMaxHeight(8);
         horizontal.addView(editText);
 
         Switch answer = new Switch(this);
