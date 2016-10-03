@@ -23,7 +23,7 @@ private TextView temp;
 
 
     public void activity_main_make_questions_button_clicked(View view) {
-        startActivity(new Intent(this,MakeQuestions.class));
+        startActivity(new Intent(this,MakeQuestions.class));finish();
     }
 
     public void activity_main_answer_question_button_clicked(View view) {

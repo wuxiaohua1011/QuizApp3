@@ -2,19 +2,14 @@ package csaper6.michelwu.quizapp2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class MakeQuestions extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -40,7 +35,7 @@ public class MakeQuestions extends AppCompatActivity {
     }
 
     public void activity_make_question_back_button_clicked(View view) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));finish();
     }
 
     public void activity_make_question_done_button_clicked(View view) {
